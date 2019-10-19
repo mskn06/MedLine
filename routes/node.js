@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.router;
 const { addNode, getAllNodes } = require('../services/node');
 
-// router.put('');
-
 router.get('/:userId', async (req, res) => {
 	try {
 		res.status(200).send(await getAllNodes(req.params.userId));
