@@ -12,7 +12,7 @@ router.get('/:userId', async (req, res) => {
 
 router.post('/', (req, res) => {
 	try {
-		addNode(req.body);
+		res.status(200).send(addNode(req.body));
 	} catch (err) {
 		res.status(500).send(err);
 	}
