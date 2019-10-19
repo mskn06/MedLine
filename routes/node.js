@@ -1,10 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.router;
-const { addNode, getAllNodes } = require('../services/node');
+const { addNode, getAllNodes } = require("../services/node");
+const io = require("../socket");
 
-// router.put('');
-
-router.get('/:userId', async (req, res) => {
+router.get("/:userId", async (req, res) => {
 	try {
 		res.status(200).send(await getAllNodes(req.params.userId));
 	} catch (err) {
@@ -12,9 +11,20 @@ router.get('/:userId', async (req, res) => {
 	}
 });
 
-router.post('/', (req, res) => {
+router.post("/", async (req, res) => {
 	try {
-		addNode(req.body);
+		io.sockets
+			.in(req.body.patientId)
+			.emit("confirm_node", { msg: "Confirm", data: req.body }, data => {
+				if (!data.isConfirmed) throw "Diagnosis Rejected";
+				else {
+					const node = await addNode(req.body);
+					res.status(201).send({
+						msg: "Node Confirmed!",
+						data: node
+					})
+				}
+			});
 	} catch (err) {
 		res.status(500).send(err);
 	}
