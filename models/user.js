@@ -40,6 +40,16 @@ const userModel = Schema(
 		qrURL: {
 			type: String,
 			required: true
+		},
+		nodes: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Node'
+			}
+		],
+		chainVerified: {
+			type: Boolean,
+			default: false
 		}
 	},
 	{
