@@ -24,7 +24,8 @@
     <br>
     <div class="container" style="text-align: center;">
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">New
+        <button type="button" class="btn btn-info btn-lg" id="new-session" data-toggle="modal"
+            data-target="#myModal">New
             Session</button>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -38,7 +39,7 @@
                     <div class="modal-body">
                         <!-- WebCam -->
                         <div id="loadingMessage" hidden="">⌛ Loading video...</div>
-                        <canvas id="canvas"></canvas>
+                        <canvas id="canvas" height="480" width="640"></canvas>
                     </div>
                 </div>
             </div>
@@ -85,15 +86,18 @@
             canvas.stroke();
         }
 
-        // Use facingMode: environment to attemt to get the front camera on phones
-        navigator.mediaDevices
-            .getUserMedia({ video: { facingMode: "environment" } })
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-                video.play();
-                requestAnimationFrame(tick);
-            });
+        $('#new-session').on('click', function () {
+            tick();
+            // Use facingMode: environment to attemt to get the front camera on phones
+            navigator.mediaDevices
+                .getUserMedia({ video: { facingMode: "environment" } })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+                    video.play();
+                    requestAnimationFrame(tick);
+                });
+        })
 
         function tick() {
             loadingMessage.innerText = "⌛ Loading video...";
