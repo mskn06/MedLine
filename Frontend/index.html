@@ -11,13 +11,13 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+        </script>
 </head>
 
 <body>
@@ -25,27 +25,77 @@
         <nav class="navbar navbar-dark bg-dark">
             <!-- Navbar content -->
             <img src="medsharelogo.png" alt="logo" height="80px;" width="80px;">
-            <button style="margin-left:1100px; margin-top:10px;" class="btn btn-primary"
-                type="submit">Login/Signup</button>
-            <p style="color:white"></p>
+            <a href="./login/login.html"><button style="margin-left:1100px; margin-top:10px;" class="btn btn-primary"
+                    type="submit">
+                    Logout</button></a>
         </nav>
     </div>
-    <div>
-        <button type="button" class="btn btn-info btn-lg"
-            style="font-size:30px; margin-top:30px; margin-left:40%;"><strong>User
-                QR-CODE</strong></button><br>
-        <img src="qrcode.png" class="center">
+    <div class="container">
+        <div id="user-qr">
+            <img src="qrcode.png"
+                style="height: 100px; width: 100px; object-fit: contain; margin-top: 12px; margin-left: 12px">
+            <h2 style="margin-left: 12px;">Misty Charu</h2>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12 col-md-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        Main Nodes
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal1">Akash Hospital</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal2">Balaji Action Cancer</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal3">AIMS</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal4">Ayushman hospital</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal5">Fortis</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal6">Medanta</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-sm-12 col-md-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        Active Nodes
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal1">Akash Hospital</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal2">Balaji Action Cancer</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal3">AIMS</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal4">Ayushman hospital</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal5">Fortis</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="box" data-toggle="modal" data-target="#myModal6">Medanta</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <!-- <hr> -->
-        <div class="box" data-toggle="modal" data-target="#myModal1">Akash Hospital</div>
-        <!-- <hr> -->
-        <div class="box" data-toggle="modal" data-target="#myModal2">Balaji Action Cancer</div>
-        <!-- <hr> -->
-        <div class="box" data-toggle="modal" data-target="#myModal3">AIMS</div>
-        <div class="box" data-toggle="modal" data-target="#myModal4">Ayushman hospital</div>
-        <div class="box" data-toggle="modal" data-target="#myModal5">Fortis</div>
-        <div class="box" data-toggle="modal" data-target="#myModal6">Medanta</div>
+    <div class="container">
+        <button class="btn btn-lg btn-success" style="margin-left: auto; display: block; margin-top: 12px; margin-right: -12px;">Add New
+            Node</button>
     </div>
     <div class="container" width="50%">
         <!-- Modal -->
