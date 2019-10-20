@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.router;
+const router = express.Router();
 const { addNode, getAllNodes } = require("../services/node");
 const io = require("../socket");
 
@@ -15,17 +15,23 @@ router.post("/", async (req, res) => {
 	try {
 		io.sockets
 			.in(req.body.patientId)
-			.emit("confirm_node", { msg: "Confirm", data: req.body }, data => {
-				if (!data.isConfirmed) throw "Diagnosis Rejected";
-				else {
-					const node = await addNode(req.body);
-					res.status(201).send({
-						msg: "Node Confirmed!",
-						data: node
-					})
+			.emit(
+				"confirm_node",
+				{ msg: "Confirm", data: req.body },
+				async data => {
+					if (!data.isConfirmed) throw "Diagnosis Rejected";
+					else {
+						const node = await addNode(req.body);
+						res.status(201).send({
+							msg: "Node Confirmed!",
+							data: node
+						});
+					}
 				}
-			});
+			);
 	} catch (err) {
 		res.status(500).send(err);
 	}
 });
+
+module.exports = router;

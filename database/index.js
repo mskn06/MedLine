@@ -1,17 +1,19 @@
 const mongoose = require("mongoose");
 const ProvenDB = require("@southbanksoftware/provendb-node-driver").Database;
 
-const provenDB_URI = "YOUR_PROVENDB_URI_HERE";
+const pass = encodeURIComponent("S!ddh@nt");
+const provenDB_URI = `mongodb://siddhantj929:${pass}@34.94.88.60/med-share?ssl=true`;
 let dbObject;
 let pdb;
 
 // First we establish a connection to ProvenDB.
 mongoose
 	.connect(provenDB_URI, {
-		useNewUrlParser: true
+		useNewUrlParser: true,
+		useUnifiedTopology: true
 	})
 	.then(client => {
-		dbObject = client.db.db("YOUR_PROVENDB_SERVICE_HERE");
+		dbObject = mongoose.connection.db;
 		pdb = new ProvenDB(dbObject);
 	})
 	.catch(err => {

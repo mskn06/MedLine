@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
 		if (!user || password !== req.body.password) {
 			res.status(404).send("Wrong credentials");
 		} else {
-			res.status(200).send(user);
+			res.render("index", { patient: user });
 		}
 	} catch (err) {
 		res.status(500).send(err);
