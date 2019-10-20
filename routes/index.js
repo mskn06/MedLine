@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
 router.get("/:authorityId/:userId", async (req, res) => {
 	try {
 		const user = await User.findById(req.params.userId).populate('nodes');
-		res.status(200).render("authority_nodes", {
+		res.render("authority_nodes", {
 			patient: user
 		})
 	} catch (err) {

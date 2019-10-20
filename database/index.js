@@ -13,6 +13,7 @@ mongoose
 		useUnifiedTopology: true
 	})
 	.then(client => {
+		console.log("Connected to db.");
 		dbObject = mongoose.connection.db;
 		pdb = new ProvenDB(dbObject);
 	})
@@ -22,4 +23,7 @@ mongoose
 		process.exit();
 	});
 
-module.exports = { dbObject, pdb };
+module.exports = {
+	dbObject,
+	pdb
+};
