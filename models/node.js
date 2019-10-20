@@ -1,29 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const nodeModel = Schema(
 	{
 		patientId: {
 			type: Schema.Types.ObjectId,
-			ref: 'User',
-			required: true
+			ref: "User"
 		},
 		authorityId: {
 			type: Schema.Types.ObjectId,
-			required: true,
-			ref: 'Authority'
+			ref: "Authority"
 		},
 		diagnosis: {
-			type: String,
-			required: true
+			type: String
 		},
 		prescription: {
-			type: String,
-			required: true
+			type: String
 		},
 		symptoms: {
-			type: String,
-			required: true
+			type: String
 		},
 		comments: {
 			type: String
@@ -35,18 +30,19 @@ const nodeModel = Schema(
 			{
 				name: String,
 				report: String,
-				files: [ String ]
+				files: [String]
 			}
 		],
 		status: {
 			type: String,
-			enum: [ 'ACTIVE', 'COMPLETED' ],
-			default: 'COMPLETED'
-		}
+			enum: ["ACTIVE", "COMPLETED"],
+			default: "ACTIVE"
+		},
+		opt: String
 	},
 	{
 		timestamps: true
 	}
 );
 
-module.exports = mongoose.model('Node', nodeModel);
+module.exports = mongoose.model("Node", nodeModel);
