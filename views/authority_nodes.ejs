@@ -24,17 +24,14 @@
     <div class="change">
         <nav class="navbar navbar-dark bg-dark">
             <!-- Navbar content -->
-            <img src="medsharelogo.png" alt="logo" height="80px;" width="80px;">
-            <a href="./login/login.html"><button style="margin-left:1100px; margin-top:10px;" class="btn btn-primary"
-                    type="submit">
+            <img src="/images/medsharelogo.png" alt="logo" height="80px;" width="80px;">
+            <a href="#"><button style="margin-left:1100px; margin-top:10px;" class="btn btn-primary" type="submit">
                     Logout</button></a>
         </nav>
     </div>
     <div class="container">
-        <div id="user-qr">
-            <img src="qrcode.png"
-                style="height: 100px; width: 100px; object-fit: contain; margin-top: 12px; margin-left: 12px">
-            <h2 style="margin-left: 12px;"><%= patient.name%></h2>
+        <div id="user-qr mt-2" style="margin-bottom: 1rem;">
+            <h2 style="margin-left: 12px; margin-top: 1rem;"><%= patient.name%></h2>
         </div>
         <div class="row">
             <div class="col col-sm-12 col-md-12 col-lg-6">
@@ -149,7 +146,6 @@
 
         </div>
     </div>
-
 </body>
 
 </html>

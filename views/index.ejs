@@ -24,9 +24,8 @@
     <div class="change">
         <nav class="navbar navbar-dark bg-dark">
             <!-- Navbar content -->
-            <img src="medsharelogo.png" alt="logo" height="80px;" width="80px;">
-            <a href="./login/login.html"><button style="margin-left:1100px; margin-top:10px;" class="btn btn-primary"
-                    type="submit">
+            <img src="/images/medsharelogo.png" alt="logo" height="80px;" width="80px;">
+            <a href="#"><button style="margin-left:1100px; margin-top:10px;" class="btn btn-primary" type="submit">
                     Logout</button></a>
         </nav>
     </div>
@@ -105,57 +104,46 @@
     </div>
     <% }) %>
     <!-- Modal -->
-    <!-- <div id="myModal" class="modal fade" role="dialog">
+    <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
                 <div class="modal-header" style="text-align: center;">
 
-                    <h4 class="modal-title" style="text-align: center;">Complete Overview</h4>
+                    <h4 class="modal-title" style="text-align: center;">Confirm</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/node" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="authorityName">authorityName</label>
-                            <input name="authorityName" type="name" class="form-control" id="exampleInputPassword1"
-                                aria-describedby="emailHelp" placeholder="Enter name">
 
-                        </div>
-                        <div class="form-group">
-                            <label for="address">address</label>
-                            <input name="address" type="text" placeholder="Address">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">email</label>
-                            <input name="email" type="text" class="form-control" id="exampleInputPassword1"
-                                placeholder="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">password</label>
-                            <input name="password" type="text" class="form-control" id="exampleInputPassword1"
-                                placeholder="password">
-                        </div>
-                        <div class="form-group">
-                            <label for="role">role</label>
-                            <input name="role" type="text" class="form-control" id="exampleInputPassword1"
-                                placeholder="role">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">Proof</label>
-                            <input name="file" type="file" class="form-control-file" id="exampleFormControlFile1"
-                                placeholder="Proof">
-                        </div>
-
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
                 </div>
-
-            </div> -->
-
+                <div class="modal-footer">
+                    <button type="button" id="reject" class="btn btn-secondary" data-dismiss="modal">Reject</button>
+                    <button type="button" id="approve" class="btn btn-primary">Approve</button>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost');
+        socket.emit('join', { userId: "<%= patient.id %>" });
+        socket.on("new_msg", function (data) {
+            $('#confirmModal .modal-body').html(data.data);
+            $('#confirmModal').modal('show', { backdrop: false });
+        })
+
+        function sendAproval(yes) {
+            socket.emit("confirm_node", { isConfirmed: yes });
+        }
+
+        $('#reject').click(function () {
+            sendAproval(false);
+        })
+
+        $('#approve').click(function () {
+            sendAproval(true);
+        })
+    </script>
 </body>
 
 </html>

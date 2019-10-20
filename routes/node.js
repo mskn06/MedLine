@@ -13,25 +13,29 @@ router.get("/:userId", async (req, res) => {
 
 router.post("/", async (req, res) => {
 	try {
-		io.sockets
-			.in(req.body.patientId)
-			.emit(
-				"confirm_node",
-				{ msg: "Confirm", data: req.body },
-				async data => {
-					if (!data.isConfirmed) throw "Diagnosis Rejected";
-					else {
-						const node = await addNode(req.body);
-						res.status(201).send({
-							msg: "Node Confirmed!",
-							data: node
-						});
-					}
-				}
-			);
+		const data = await getConfirmation();
+		if (data) {
+			return res.redirect("/authority/login");
+		}
 	} catch (err) {
 		res.status(500).send(err);
 	}
 });
+
+const getConfirmation = async () => {
+	io.sockets
+		.in(req.body.patientId)
+		.emit(
+			"confirm_node",
+			{ msg: "Confirm", data: req.body },
+			async data => {
+				if (!data.isConfirmed) return false;
+				else {
+					const node = await addNode(req.body);
+					return node;
+				}
+			}
+		);
+};
 
 module.exports = router;

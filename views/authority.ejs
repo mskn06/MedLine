@@ -39,7 +39,7 @@
                     <div class="modal-body">
                         <!-- WebCam -->
                         <div id="loadingMessage" hidden="">⌛ Loading video...</div>
-                        <canvas id="canvas" height="480" width="640"></canvas>
+                        <canvas id="canvas" height="480" width="640" style="width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
@@ -71,23 +71,23 @@
     <script src="index.js"></script>
     <script>
 
-        var userId;
-        var video = document.createElement("video");
-        var canvasElement = document.getElementById("canvas");
-        var canvas = canvasElement.getContext("2d");
-        var loadingMessage = document.getElementById("loadingMessage");
-
-        function drawLine(begin, end, color) {
-            canvas.beginPath();
-            canvas.moveTo(begin.x, begin.y);
-            canvas.lineTo(end.x, end.y);
-            canvas.lineWidth = 4;
-            canvas.strokeStyle = color;
-            canvas.stroke();
-        }
-
         $('#new-session').on('click', function () {
-            tick();
+
+            var userId;
+            var video = document.createElement("video");
+            var canvasElement = document.getElementById("canvas");
+            var canvas = canvasElement.getContext("2d");
+            var loadingMessage = document.getElementById("loadingMessage");
+
+            function drawLine(begin, end, color) {
+                canvas.beginPath();
+                canvas.moveTo(begin.x, begin.y);
+                canvas.lineTo(end.x, end.y);
+                canvas.lineWidth = 4;
+                canvas.strokeStyle = color;
+                canvas.stroke();
+            }
+
             // Use facingMode: environment to attemt to get the front camera on phones
             navigator.mediaDevices
                 .getUserMedia({ video: { facingMode: "environment" } })
@@ -97,63 +97,63 @@
                     video.play();
                     requestAnimationFrame(tick);
                 });
-        })
 
-        function tick() {
-            loadingMessage.innerText = "⌛ Loading video...";
-            if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                loadingMessage.hidden = true;
-                canvasElement.hidden = false;
+            function tick() {
+                loadingMessage.innerText = "⌛ Loading video...";
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    loadingMessage.hidden = true;
+                    canvasElement.hidden = false;
 
-                canvasElement.height = video.videoHeight;
-                canvasElement.width = video.videoWidth;
-                canvas.drawImage(
-                    video,
-                    0,
-                    0,
-                    canvasElement.width,
-                    canvasElement.height
-                );
-                var imageData = canvas.getImageData(
-                    0,
-                    0,
-                    canvasElement.width,
-                    canvasElement.height
-                );
-                var code = jsQR(imageData.data, imageData.width, imageData.height, {
-                    inversionAttempts: "dontInvert"
-                });
-                if (code) {
-                    drawLine(
-                        code.location.topLeftCorner,
-                        code.location.topRightCorner,
-                        "#FF3B58"
+                    canvasElement.height = video.videoHeight;
+                    canvasElement.width = video.videoWidth;
+                    canvas.drawImage(
+                        video,
+                        0,
+                        0,
+                        canvasElement.width,
+                        canvasElement.height
                     );
-                    drawLine(
-                        code.location.topRightCorner,
-                        code.location.bottomRightCorner,
-                        "#FF3B58"
+                    var imageData = canvas.getImageData(
+                        0,
+                        0,
+                        canvasElement.width,
+                        canvasElement.height
                     );
-                    drawLine(
-                        code.location.bottomRightCorner,
-                        code.location.bottomLeftCorner,
-                        "#FF3B58"
-                    );
-                    drawLine(
-                        code.location.bottomLeftCorner,
-                        code.location.topLeftCorner,
-                        "#FF3B58"
-                    );
-                    userId = code.data;
-                    window.location.href = "https://localhost:3000/visit/" + userId;
-                } else {
-                    loadingMessage.hidden = false;
-                    loadingMessage.innerText = "Sorry, no QR Code found!";
-                    canvasElement.hidden = true;
+                    var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts: "dontInvert"
+                    });
+                    if (code) {
+                        drawLine(
+                            code.location.topLeftCorner,
+                            code.location.topRightCorner,
+                            "#FF3B58"
+                        );
+                        drawLine(
+                            code.location.topRightCorner,
+                            code.location.bottomRightCorner,
+                            "#FF3B58"
+                        );
+                        drawLine(
+                            code.location.bottomRightCorner,
+                            code.location.bottomLeftCorner,
+                            "#FF3B58"
+                        );
+                        drawLine(
+                            code.location.bottomLeftCorner,
+                            code.location.topLeftCorner,
+                            "#FF3B58"
+                        );
+                        userId = code.data;
+                        window.location.pathname = "/visit/" + userId;
+                    } else {
+                        // loadingMessage.hidden = false;
+                        // loadingMessage.innerText = "Sorry, no QR Code found!";
+                        // canvasElement.hidden = true;
+                    }
                 }
+                requestAnimationFrame(tick);
             }
-            requestAnimationFrame(tick);
-        }
+        })
     </script>
 </body>
 
