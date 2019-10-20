@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userModel = Schema(
@@ -18,12 +18,15 @@ const userModel = Schema(
 			trim: true,
 			lowercase: true,
 			unique: true,
-			validate: [ validateEmail, 'Please fill a valid email address' ],
-			match: [ /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address' ]
+			validate: [validateEmail, "Please fill a valid email address"],
+			match: [
+				/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+				"Please fill a valid email address"
+			]
 		},
 		gender: {
 			type: String,
-			default: 'MALE'
+			default: "MALE"
 		},
 		phoneNumber: {
 			type: String,
@@ -44,12 +47,12 @@ const userModel = Schema(
 		nodes: [
 			{
 				type: Schema.Types.ObjectId,
-				ref: 'Node'
+				ref: "Node"
 			}
 		],
 		chainVerified: {
-			type: Boolean,
-			default: false
+			type: String,
+			default: "Valid"
 		}
 	},
 	{
@@ -57,4 +60,4 @@ const userModel = Schema(
 	}
 );
 
-module.exports = mongoose.model('User', userModel);
+module.exports = mongoose.model("User", userModel);
