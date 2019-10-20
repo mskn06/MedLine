@@ -1,8 +1,11 @@
 var express = require("express");
 var router = express.Router();
 const qrcode = require("qrcode");
-const User = require("../models/user")
+const User = require("../models/user");
 
+router.get("/signup", (req, res) => {
+	res.render("user/signup");
+});
 
 router.post("/signup", async (req, res) => {
 	try {
@@ -10,9 +13,10 @@ router.post("/signup", async (req, res) => {
 			name: req.body.name
 		});
 
-		if (user) res.status(400).send({
-			msg: "userName already exists!"
-		});
+		if (user)
+			res.status(400).send({
+				msg: "userName already exists!"
+			});
 
 		//creates new user
 		const newuser = new User(req.body);
@@ -26,7 +30,7 @@ router.post("/signup", async (req, res) => {
 		const saveduser = await newuser.save();
 		res.status(201).render("index", {
 			title: "Sign Up",
-			user: saveduser
+			patient: saveduser
 		});
 	} catch (err) {
 		res.status(500).send(err);
@@ -36,7 +40,8 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
 	try {
 		const user = await User.findOne({
-			$or: [{
+			$or: [
+				{
 					email: req.body.email
 				},
 				{
@@ -45,18 +50,24 @@ router.post("/login", async (req, res) => {
 			]
 		});
 
-		if (!user || password != req.body.password) {
+		if (!user || req.body.password != req.body.password) {
 			res.status(404).send({
 				msg: "Wrong credentials"
 			});
 		} else {
-			res.render("index", {
-				patient: user
-			});
+			// res.render("index", {
+			// 	patient: user
+			// });
+
+			res.send(user);
 		}
 	} catch (err) {
 		res.status(500).send(err);
 	}
+});
+
+router.get("/login", (req, res) => {
+	res.render("user/login");
 });
 
 module.exports = router;
