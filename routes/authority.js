@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
 	res.send("Authority Page");
 });
 
@@ -25,9 +25,12 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
 	try {
 		const authority = await Authority.findOne({
-			$or: [
-				{ authorityName: req.body.authorityName },
-				{ email: req.body.email }
+			$or: [{
+					authorityName: req.body.authorityName
+				},
+				{
+					email: req.body.email
+				}
 			]
 		});
 
