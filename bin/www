@@ -25,7 +25,7 @@ const io = require("../socket")(server);
 
 io.sockets.on("connection", socket => {
 	socket.on("join", data => {
-		console.log(userId + " Joined");
+		console.log(data.userId + " Joined");
 		socket.join(data.userId);
 	});
 });
