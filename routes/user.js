@@ -55,11 +55,11 @@ router.post("/login", async (req, res) => {
 				msg: "Wrong credentials"
 			});
 		} else {
-			// res.render("index", {
-			// 	patient: user
-			// });
+			res.render("index", {
+				patient: user
+			});
 
-			res.send(user);
+			// res.send(user);
 		}
 	} catch (err) {
 		res.status(500).send(err);

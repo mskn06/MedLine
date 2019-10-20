@@ -20,6 +20,8 @@ router.post("/", async (req, res) => {
 	} catch (err) {
 		res.status(500).send(err);
 	}
+
+	res.send("Try again");
 });
 
 const getConfirmation = async () => {
