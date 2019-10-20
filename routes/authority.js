@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const Authority = require("../models/authority")
 
 router.get("/", function (req, res, next) {
 	res.send("Authority Page");
