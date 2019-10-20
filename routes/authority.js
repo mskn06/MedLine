@@ -17,7 +17,9 @@ router.post("/signup", async (req, res) => {
 		//creates new authority
 		const newauthority = new Authority(req.body);
 		const savedauthority = await newauthority.save();
-		res.status(201).send(savedauthority);
+		res.status(201).render("index", {
+			authority: savedauthority
+		});
 	} catch (err) {
 		res.status(500).send(err);
 	}
@@ -38,7 +40,9 @@ router.post("/login", async (req, res) => {
 		if (!authority) {
 			res.status(404).send("The authority does not exist!");
 		} else {
-			if (password == req.body.password) res.status(200).send(authority);
+			if (password == req.body.password) res.status(200).render("index", {
+				authority: authority
+			});
 		}
 	} catch (err) {
 		res.status(500).send(err);

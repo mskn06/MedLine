@@ -4,15 +4,13 @@ const User = require("../models/user")
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-	res.render("index", {
-		title: "Express"
-	});
+	res.render("home");
 });
 
 router.get("/:authorityId/:userId", async (req, res) => {
 	try {
 		const user = await User.findById(req.params.userId).populate('nodes');
-		res.status(200).render("index", {
+		res.status(200).render("authority_nodes", {
 			patient: user
 		})
 	} catch (err) {
