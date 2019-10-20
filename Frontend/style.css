@@ -20,6 +20,10 @@ body {
     margin: 12px;
 }
 
+#doctor .card {
+    margin: 12px;
+}
+
 #user-qr {
     display: flex;
     justify-content: flex-start;
